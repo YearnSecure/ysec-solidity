@@ -152,8 +152,9 @@ contract YSECPresale is Ownable{
 
         address pairAddress = _uniswapFactory.getPair(Token.GetAddress(), _uniswapRouter.WETH());
         IERC20 uniV2Pair = IERC20(pairAddress);
-        uniV2Pair.approve(address(this), uniV2Pair.balanceOf(address(this)));
-        _uniCrypt.depositToken(pairAddress, uniV2Pair.balanceOf(address(this)), block.timestamp.add(365 days));
+        uint256 uniV2Balance = uniV2Pair.balanceOf(address(this));
+        uniV2Pair.approve(_uniCryptAddress, uniV2Balance);
+        _uniCrypt.depositToken(pairAddress, uniV2Balance), block.timestamp.add(365 days));
 
         LiquidityLocked = true;
         LiquidityLockedDate = block.timestamp;
